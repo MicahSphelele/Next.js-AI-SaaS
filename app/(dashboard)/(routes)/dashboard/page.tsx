@@ -2,14 +2,13 @@
 
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { useRouter } from "@/node_modules/next/navigation";
+import { useRouter } from "next/navigation";
 
 import {
   Code,
   ImageIcon,
   MessageSquare,
   Music,
-  Settings,
   VideoIcon,
   ArrowRight,
 } from "lucide-react";
