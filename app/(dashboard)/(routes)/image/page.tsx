@@ -1,3 +1,5 @@
+"use client";
+
 import Heading from "@/components/heading";
 
 import { ImageIcon } from "lucide-react";

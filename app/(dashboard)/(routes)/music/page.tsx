@@ -1,3 +1,5 @@
+"use client";
+
 import Heading from "@/components/heading";
 
 import { Music } from "lucide-react";

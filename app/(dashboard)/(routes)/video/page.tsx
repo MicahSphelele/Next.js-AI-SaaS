@@ -1,3 +1,5 @@
+"use client";
+
 import Heading from "@/components/heading";
 
 import { VideoIcon } from "lucide-react";
