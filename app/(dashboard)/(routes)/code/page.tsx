@@ -35,7 +35,7 @@ const CodeGenerationPage = () => {
 
     const isLoading = form.formState.isSubmitting;
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) => { 
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
 
             const userMessage: ChatCompletionMessageParam = {
@@ -68,7 +68,7 @@ const CodeGenerationPage = () => {
                 iconColor="text-green-700"
                 bgColor="bg-green-700/10" />
 
-<div className="px-4 lg:px-4">
+            <div className="px-4 lg:px-4">
                 <div>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}
@@ -96,23 +96,26 @@ const CodeGenerationPage = () => {
                 </div>
                 <div className="space-y-4 mt-4">
 
-                    {isLoading && (
-                        <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
-                            <Loader />
-                        </div>
-                    )
+                    {
+                        isLoading && (
+                            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+                                <Loader />
+                            </div>
+                        )
 
                     }
 
-                    {messages.length == 0 && !isLoading && (
-                        <div>
-                            <Empty label="No conversation started" />
-                        </div>
-                    )
+                    {
+                        messages.length == 0 && !isLoading && (
+                            <div>
+                                <Empty label="No conversation started" />
+                            </div>
+                        )
 
                     }
 
                     <div className="flex flex-col-reverse gap-y-4">
+
                         {
                             messages.map((message) => (
 
@@ -122,17 +125,19 @@ const CodeGenerationPage = () => {
                                         message.role === "user" ? "bg-white border border-black/10" : "bg-muted")}>
 
                                     {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                                    <ReactMarkdown 
-                                    className="text-sm overflow-hidden leading-7"
-                                    components={ {pre: ({ node, ...props } ) => (
-                                            <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                                                <pre {...props} />
-                                            </div>
-                                        ), code: ({ node, ...props  } ) => (
-                                            <code className="bg-black/10 rounded-lg p-1" {...props} />
-                                        ) }
-                                    }>
-                                        { message.content as string || ""}
+                                    <ReactMarkdown
+                                        className="text-sm overflow-hidden leading-7"
+                                        components={{
+                                            pre: ({ node, ...props }) => (
+                                                <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                                                    <pre {...props} />
+                                                </div>
+                                            ), code: ({ node, ...props }) => (
+                                                <code className="bg-black/10 rounded-lg p-1" {...props} />
+                                            )
+                                        }
+                                        }>
+                                        {message.content as string || ""}
                                     </ReactMarkdown>
 
                                 </div>
@@ -140,6 +145,7 @@ const CodeGenerationPage = () => {
 
                             ))
                         }
+                        
                     </div>
                 </div>
             </div>

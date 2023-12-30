@@ -86,7 +86,7 @@ const ImageGenerationPage = () => {
 
                             <FormField
                                 control={form.control}
-                                name="amount" 
+                                name="amount"
                                 render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-2">
                                         <Select disabled={isLoading}
@@ -101,7 +101,7 @@ const ImageGenerationPage = () => {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                { amountOptions.map((option) => (
+                                                {amountOptions.map((option) => (
                                                     <SelectItem
                                                         key={option.value}
                                                         value={option.value}>
@@ -116,7 +116,7 @@ const ImageGenerationPage = () => {
 
                             <FormField
                                 control={form.control}
-                                name="resolution" 
+                                name="resolution"
                                 render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-2">
                                         <Select disabled={isLoading}
@@ -131,7 +131,7 @@ const ImageGenerationPage = () => {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                { resolutionOptions.map((option) => (
+                                                {resolutionOptions.map((option) => (
                                                     <SelectItem
                                                         key={option.value}
                                                         value={option.value}>
@@ -153,19 +153,21 @@ const ImageGenerationPage = () => {
                 </div>
                 <div className="space-y-4 mt-4">
 
-                    {isLoading && (
-                        <div className="p-20">
-                            <Loader />
-                        </div>
-                    )
+                    {
+                        isLoading && (
+                            <div className="p-20">
+                                <Loader />
+                            </div>
+                        )
 
                     }
 
-                    {images.length == 0 && !isLoading && (
-                        <div>
-                            <Empty label="No images generated" />
-                        </div>
-                    )
+                    {
+                        images.length == 0 && !isLoading && (
+                            <div>
+                                <Empty label="No images generated" />
+                            </div>
+                        )
 
                     }
 
