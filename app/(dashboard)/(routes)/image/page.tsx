@@ -13,8 +13,10 @@ import { useState } from "react";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
-import { ImageIcon } from "lucide-react";
+import { Download, ImageIcon } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardFooter } from "@/components/ui/card";
+import Image from "next/image";
 
 const ImageGenerationPage = () => {
 
@@ -171,8 +173,35 @@ const ImageGenerationPage = () => {
 
                     }
 
-                    <div>
-
+                    <div className="grid grid-cols-1 md:grid-col-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
+                        {
+                            images.map((src) => (
+                                <Card
+                                    key={src}
+                                    className="rounded-lg overflow-hidden">
+                                    <div className="relative aspect-square">
+                                        <Image
+                                            alt="Generated image"
+                                            fill
+                                            src={src}
+                                            sizes="200px"
+                                            placeholder="blur"
+                                            blurDataURL={'/empty.png'} />
+                                    </div>
+                                    <CardFooter
+                                        className="p-2">
+                                        <Button
+                                            onClick={ () => window.open(src) }
+                                            variant="secondary"
+                                            className="w-full">
+                                            <Download
+                                                className="h-4 w-4 mr-2" />
+                                           Download     
+                                        </Button>
+                                    </CardFooter>
+                                </Card>
+                            ))
+                        }
                     </div>
                 </div>
             </div>
