@@ -165,7 +165,7 @@ const ImageGenerationPage = () => {
                     }
 
                     {
-                        images.length == 0 && !isLoading && (
+                        images.length === 0 && !isLoading && (
                             <div>
                                 <Empty label="No images generated" />
                             </div>

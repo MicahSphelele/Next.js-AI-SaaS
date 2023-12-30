@@ -108,7 +108,7 @@ const ConversationPage = () => {
                     }
 
                     {
-                        messages.length == 0 && !isLoading && (
+                        messages.length === 0 && !isLoading && (
                             <div>
                                 <Empty label="No conversation started" />
                             </div>
