@@ -107,9 +107,13 @@ const MusicGenerationPage = () => {
 
                     }
 
-                    <div >
-
-                    </div>
+                    {
+                        music && (
+                            <audio controls className="w-full mt-8 ">
+                                <source src={music} />
+                            </audio>
+                        )
+                    }
                 </div>
             </div>
         </div>
