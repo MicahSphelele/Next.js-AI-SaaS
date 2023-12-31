@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { OpenAI } from "openai";
+import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
 
   
   const openai = new OpenAI({
@@ -35,17 +36,19 @@ import { OpenAI } from "openai";
             return new NextResponse("Resolution are required", { status: 400 });
         }
 
-        openai.images.generate({
-        model: "dall-e-2", 
-        prompt, 
-        n: parseInt(amount, 10), 
-        size: resolution });
+        const freeTrail = await checkApiLimit();
+
+        if(!freeTrail) {
+            return new NextResponse("Free trail has expired", { status: 403 });
+        }
 
         const response = await openai.images.generate({
             model: "dall-e-2", 
             prompt, 
             n: parseInt(amount, 10), 
             size: resolution });
+
+        await increaseApiLimit();
     
 
         return NextResponse.json(response.data);
