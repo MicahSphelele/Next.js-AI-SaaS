@@ -49,7 +49,6 @@ const MusicGenerationPage = () => {
         } finally {
             router.refresh();
         }
-
     }
 
     return (
