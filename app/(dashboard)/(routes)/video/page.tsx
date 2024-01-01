@@ -16,11 +16,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const VideoGenerationPage = () => {
 
 
     const router = useRouter();
+
+    const proModal = useProModal();
 
     const [video, setVideo] = useState<string>();
 
@@ -46,7 +49,13 @@ const VideoGenerationPage = () => {
             form.reset();
 
         } catch (error: any) {
-            //TODO(Open Pro Model)
+            
+            if(error?.response?.status == 403) {
+                
+                proModal.onOpen();
+
+            }
+
             console.log(error);
         } finally {
             router.refresh();

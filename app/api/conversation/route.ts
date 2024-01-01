@@ -15,7 +15,7 @@ import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
         const { userId } = auth();
         const body = await req.json();
         const { messages } = body;
-
+        
         if(!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
