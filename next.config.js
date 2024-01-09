@@ -10,5 +10,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-
-//oaidalleapiprodscus.blob.core.windows.net
