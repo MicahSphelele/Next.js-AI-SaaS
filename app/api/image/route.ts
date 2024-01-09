@@ -2,25 +2,26 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { OpenAI } from "openai";
 import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
+import { checkSubscription } from "@/lib/subscription";
 
-  
-  const openai = new OpenAI({
+
+const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
-  });
+});
 
-  export async function POST(req: Request) {
+export async function POST(req: Request) {
 
     try {
-        
+
         const { userId } = auth();
         const body = await req.json();
         const { prompt, amount = 1, resolution = "512x512" } = body;
 
-        if(!userId) {
+        if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        if(!openai.apiKey) {
+        if (!openai.apiKey) {
             return new NextResponse("Open AI API key not configured", { status: 500 });
         }
 
@@ -38,24 +39,28 @@ import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
 
         const freeTrail = await checkApiLimit();
 
-        if(!freeTrail) {
+        const isPro = await checkSubscription();
+
+        if (!freeTrail && !isPro) {
             return new NextResponse("Free trail has expired", { status: 403 });
         }
 
         const response = await openai.images.generate({
-            model: "dall-e-2", 
-            prompt, 
-            n: parseInt(amount, 10), 
-            size: resolution });
+            model: "dall-e-2",
+            prompt,
+            n: parseInt(amount, 10),
+            size: resolution
+        });
 
-        await increaseApiLimit();
-    
+        if (!isPro) {
+            await increaseApiLimit();
+        }
 
         return NextResponse.json(response.data);
 
-    } catch(error) {
+    } catch (error) {
         console.log("[IMAGE_ERROR]", error);
         return new NextResponse("Internal Error", { status: 500 });
     }
-    
-  }
+
+}
